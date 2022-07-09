@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/4.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -41,6 +41,10 @@ INSTALLED_APPS = [
     'crispy_bootstrap5',
     'mainapp'
 ]
+
+ALLOWED_HOSTS = ["*"]
+
+CSRF_TRUSTED_ORIGINS = ["https://vanx.herokuapp.com", "http://127.0.0.1"]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -77,16 +81,15 @@ WSGI_APPLICATION = 'shortlink_service.wsgi.application'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 DATABASES = {
-   "default": {
-       "ENGINE": "django.db.backends.postgresql",
-       "NAME": "xvan",
-       "USER": "xvan",
-       "PASSWORD": "xvan",
-       "HOST": "localhost",
-       "PORT": 5432,
-   }
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.getenv("POSTGRES_NAME", "xvan"),
+        "USER": os.getenv("POSTGRES_USER", "xvan"),
+        "PASSWORD": os.getenv("POSTGRES_PASS", "xvan"),
+        "HOST": os.getenv("POSTGRES_HOST", "localhost"),
+        "PORT": 5432,
+    }
 }
-
 
 
 # Password validation

@@ -1,0 +1,12 @@
+.venv/
+.idea/
+
+
+Тестовое задание Python Django/
+venv/
+
+__pycache__/
+*.py[cod]
+*$py.class
+
+database.sql

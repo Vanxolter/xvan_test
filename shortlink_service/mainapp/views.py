@@ -64,6 +64,8 @@ def logout_view(request):
 
 
 def main(request):
+    """Функция сокращения ссылок. На вход получаем стандартную ссылку, после чего отделяем домен и генерируем к
+    нему рандомный слаг"""
     if request.method == "POST":
         form = LinksForm(request.POST)
         if form.is_valid():
@@ -84,4 +86,5 @@ def main(request):
 
 
 def my_links(request):
-    return render(request, "links.html")
+    my_links = My_links.objects.filter(author=request.user)
+    return render(request, "links.html", {"my_links": my_links})

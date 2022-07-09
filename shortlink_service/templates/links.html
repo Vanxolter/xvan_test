@@ -1,6 +1,14 @@
 {% extends "base.html" %}
 
+{% block title %}Список ссылок{% endblock %}
 
 {% block content %}
-<h1>My Links</h1>
+    <div class="container">
+    <h1>Cписок ссылок</h1>
+        {% for link in my_links %}
+            <div class="col-6">
+                <a href="{{link.long_link}}">{{ link.short_link }}</a>
+            </div>
+        {% endfor %}
+    </div>
 {% endblock %}

@@ -21,7 +21,7 @@ from mainapp.views import authorization, register, main, logout_view, my_links
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("", authorization, name="login"),  # АВТОРИЗАЦИЯ
-    path("users/", register, name="register"),  # РЕГИСТРАЦИЯ
+    path("register/", register, name="register"),  # РЕГИСТРАЦИЯ
     path("logouthtml/", logout_view, name="logout"),  # ВЫХОД ИЗ ПРОФИЛЯ
     path("main/", main, name="main"),  # ДОМАШНЯЯ СТРАНИЦА
     path("links/", my_links, name="links"),  # ДОМАШНЯЯ СТРАНИЦА

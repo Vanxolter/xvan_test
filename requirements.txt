@@ -1,4 +1,4 @@
-django>=4.0.1,<4.1.0
+django==3.2.9
 pytest>=6.2.5
 pytest-django>=4.5.2
 crispy-bootstrap5==0.6

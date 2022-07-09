@@ -4,7 +4,11 @@ from django.shortcuts import render, redirect, HttpResponse
 import logging
 from django.contrib.auth.models import User
 
-from mainapp.forms import RegisterForm, Authorization
+from mainapp.forms import RegisterForm, Authorization, LinksForm
+from mainapp.models import My_links
+
+import string
+import secrets
 
 logger = logging.getLogger(__name__)
 
@@ -60,7 +64,23 @@ def logout_view(request):
 
 
 def main(request):
-    return render(request, "home.html")
+    if request.method == "POST":
+        form = LinksForm(request.POST)
+        if form.is_valid():
+            logger.info(f"Пользователь {request.user} ввел ссылку {form.cleaned_data}")
+            long_link: str = form.cleaned_data["long_link"]
+            add_long_link = My_links.objects.create(author=request.user, long_link=long_link, short_link=None)
+            cut_link1: list = long_link.split('//')  # Достаю "https:" из ссылки
+            cut_link2: list = cut_link1[1].split('/')  # Достаю название сайта "www.youtube.com" из ссылки
+            cropped_link: str = f"{cut_link1[0]}//{cut_link2[0]}/"  # Получаю рабочую домашнюю ссылку на сайт
+            slug: str = ''.join(secrets.choice(string.ascii_uppercase + string.ascii_lowercase) for i in range(6)) # Генерирую уникальный слаг
+            short_link: str = f'{cropped_link}{slug}' # Моя короткая ссылка
+            logger.info(f"Получаю короткую ссылку {short_link}")
+            update = My_links.objects.filter(author=request.user, id=add_long_link.id).update(short_link=short_link) # Закидываю короткую ссылку в базу
+            return render(request, "home.html", {"short_link": short_link, "form": form, "long_link": long_link})
+    else:
+        form = LinksForm()
+        return render(request, 'home.html', {"form": form})
 
 
 def my_links(request):

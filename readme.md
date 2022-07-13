@@ -1,3 +1,5 @@
+Деплой первого задания: https://iksvanlavrov.herokuapp.com/
+
 Тестовое Django
 ------------------------------
 

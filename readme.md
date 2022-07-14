@@ -22,3 +22,7 @@ GROUP BY bid.client_number LIMIT 10;
 
 2) Решение:  
 
+SELECT CONCAT_WS('-', home_team, away_team) AS game,  
+COUNT(CASE WHEN home_team >= away_team AND away_team <>'' THEN away_team ELSE home_team END) AS games_count  
+FROM event_entity GROUP BY game LIMIT 10;  
+

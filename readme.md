@@ -26,3 +26,6 @@ SELECT CONCAT_WS('-', home_team, away_team) AS game,
 COUNT(CASE WHEN home_team >= away_team AND away_team <>'' THEN away_team ELSE home_team END) AS games_count  
 FROM event_entity GROUP BY game LIMIT 10;  
 
+Результат:  
+
+![result 1](https://github.com/Vanxolter/xvan_test/blob/556145618c4fe0b824bbcc08ad57955c1dfd04bd/results/result2.png)  
